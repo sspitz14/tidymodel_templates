@@ -2,29 +2,49 @@
 # from https://www.tychobra.com/posts/2020-05-19-xgboost-with-tidymodels/
 # Their design and description is very sound and I iterate on their work.
 # data
-library(AmesHousing)
 
-# data cleaning
-library(janitor)
 
-# data prep
-library(dplyr)
+### required libraries
+libsneeded <- c("AmesHousing", 
+                "janitor", 
+                "tidymodels",
+                "doParallel", 
+                "remotes")
 
-# tidymodels
-library(rsample)
-library(recipes)
-library(parsnip)
-library(tune)
-library(dials)
-library(workflows)
-library(yardstick)
+for(l in libsneeded) {
+    if(!require(l, character.only = TRUE)) {
+        install.packages(l)
+        library(l, character.only = TRUE)
+    }
+}
+
+remotes::install_github("curso-r/treesnip")
 library(treesnip)
-# need this too later.
-library(ggplot2)
+
+
+# library(AmesHousing)
+# 
+# # data cleaning
+# library(janitor)
+# 
+# # data prep
+# library(dplyr)
+# 
+# # tidymodels
+# library(rsample)
+# library(recipes)
+# library(parsnip)
+# library(tune)
+# library(dials)
+# library(workflows)
+# library(yardstick)
+# library(treesnip)
+# # need this too later.
+# library(ggplot2)
 
 # speed up computation with parrallel processing (optional)
 # WARNING, THIS RESULTS IN ERRORS FOR WINDOWS. 
-library(doParallel)
+# library(doParallel)
 all_cores <- parallel::detectCores(logical = FALSE) 
 # in xgboost the cores were not optimally used on my mac, but lgbm is filling
 # it tot the brim
@@ -103,8 +123,7 @@ lgbm_grid <-
 # /// (contains the work)
 lgbm_wf <- 
     workflows::workflow() %>%
-    add_model(lightgbm_model
-             ) %>% 
+    add_model(lightgbm_model) %>% 
     add_formula(sale_price ~ .)
 
 # /// so far little to no computation has been performed except for
