@@ -9,6 +9,7 @@ libsneeded <- c("AmesHousing",
                 "janitor", 
                 "tidymodels",
                 "doParallel", 
+                "treesnip",
                 "remotes")
 
 for(l in libsneeded) {
@@ -19,12 +20,12 @@ for(l in libsneeded) {
 }
 
 # remotes::install_github("curso-r/treesnip")
-library(treesnip)
+# library(treesnip)
 
 # this requires Rtools 4.0, which needs to be installed from an .exe, and recognized in PATH
-PKG_URL <- "https://github.com/microsoft/LightGBM/releases/download/v3.0.0/lightgbm-3.0.0-r-cran.tar.gz"
-remotes::install_url(PKG_URL)
-
+# PKG_URL <- "https://github.com/microsoft/LightGBM/releases/download/v3.0.0/lightgbm-3.0.0-r-cran.tar.gz"
+# remotes::install_url(PKG_URL)
+library(lightgbm)
 
 # library(AmesHousing)
 # 
